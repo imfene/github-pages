@@ -1,0 +1,200 @@
+from pathlib import Path
+
+html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My GitHub Pages Site</title>
+  <meta name="description" content="A simple index page for a GitHub repository that serves static pages." />
+  <style>
+    :root {
+      --bg: #f6f8fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --accent: #2563eb;
+      --border: #e5e7eb;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1d4ed8, #2563eb);
+      color: white;
+      padding: 4rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    header p {
+      margin: 0 auto;
+      max-width: 760px;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+      margin-bottom: 1.5rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.4rem;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    a.button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      padding: 0.8rem 1.1rem;
+      border-radius: 10px;
+      font-weight: 600;
+      margin-right: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    a.button.secondary {
+      background: white;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+    }
+
+    code, pre {
+      font-family: Menlo, Monaco, Consolas, monospace;
+    }
+
+    pre {
+      background: #111827;
+      color: #f9fafb;
+      padding: 1rem;
+      border-radius: 12px;
+      overflow-x: auto;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 2rem 1rem 3rem;
+      font-size: 0.95rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My GitHub Pages Site</h1>
+    <p>
+      This is the landing page for a static website hosted directly from a GitHub repository.
+      Replace this content with your own project description, links, and resources.
+    </p>
+    <div style="margin-top: 1rem;">
+      <a class="button" href="https://github.com/" target="_blank" rel="noopener">View Repository</a>
+      <a class="button secondary" href="#getting-started">Get Started</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>About This Site</h2>
+      <p class="muted">
+        GitHub Pages serves static files such as HTML, CSS, JavaScript, images, and downloadable documents.
+        The default entry point is usually an <code>index.html</code> file in the root of your repository.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Projects</h2>
+        <p class="muted">
+          Add links to your projects, lessons, notes, or demos here.
+        </p>
+        <p><a href="#">Example project link</a></p>
+      </article>
+
+      <article class="card">
+        <h2>Resources</h2>
+        <p class="muted">
+          Link to PDFs, HTML pages, images, or other static resources in your repository.
+        </p>
+        <p><a href="#">Example resource link</a></p>
+      </article>
+
+      <article class="card">
+        <h2>Contact</h2>
+        <p class="muted">
+          Add your contact details, school information, or links to other sites here.
+        </p>
+        <p><a href="mailto:yourname@example.com">yourname@example.com</a></p>
+      </article>
+    </section>
+
+    <section class="card" id="getting-started">
+      <h2>Repository Setup</h2>
+      <p class="muted">
+        Put this file in the root of your GitHub repository as <code>index.html</code>. Then enable GitHub Pages in your repository settings.
+      </p>
+      <pre><code>your-repo/
+├── index.html
+├── styles.css
+├── script.js
+└── assets/</code></pre>
+    </section>
+
+    <section class="card">
+      <h2>Customize This Page</h2>
+      <ul>
+        <li>Change the heading and description to match your site.</li>
+        <li>Update the repository link button.</li>
+        <li>Replace the example project and resource links.</li>
+        <li>Add your own CSS or move the styles into a separate <code>styles.css</code> file.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for GitHub Pages static hosting.</p>
+  </footer>
+</body>
+</html>
+"""
+
+path = Path("/mnt/data/index.html")
+path.write_text(html, encoding="utf-8")
+print(path)
