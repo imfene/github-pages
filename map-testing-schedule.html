@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MAP Testing Schedule — Monday, 20 April</title>
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --bg: #fff;
+    --card: #ffffff;
+    --ink: #1f2a37;
+    --muted: #6b7280;
+    --accent: #2563eb;
+    --accent-soft: #dbeafe;
+    --border: #e5e7eb;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 48px 20px;
+    align-items: flex-start;
+  }
+
+  .schedule {
+    width: 100%;
+    max-width: 760px;
+    background: var(--card);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+  }
+
+  header {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--border);
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: #fff;
+  }
+
+  header .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 12px;
+    opacity: 0.85;
+    margin-bottom: 6px;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  header .date {
+    margin-top: 4px;
+    font-size: 15px;
+    opacity: 0.9;
+  }
+
+  .sessions {
+    padding: 8px 0;
+  }
+
+  .session {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    gap: 24px;
+    padding: 20px 32px;
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+  }
+
+  .session:last-child {
+    border-bottom: none;
+  }
+
+  .session:hover {
+    background: #fafbfc;
+  }
+
+  .time {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    font-size: 16px;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 10px 14px;
+    border-radius: 8px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .grades {
+    font-size: 17px;
+    font-weight: 600;
+  }
+
+  .activity {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .tag {
+    display: inline-block;
+    margin-left: 8px;
+    padding: 2px 8px;
+    background: #fef3c7;
+    color: #92400e;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  footer {
+    padding: 16px 32px;
+    font-size: 12px;
+    color: var(--muted);
+    border-top: 1px solid var(--border);
+    background: #fafbfc;
+  }
+
+  @media (max-width: 520px) {
+    .session {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+    .time {
+      justify-self: start;
+    }
+  }
+</style>
+</head>
+<body>
+  <main class="schedule">
+    <header>
+      <div class="eyebrow">MAP Testing Schedule</div>
+      <h1>Monday, 20 April</h1>
+      <div class="date">Test sessions by grade</div>
+    </header>
+
+    <section class="sessions">
+      <div class="session">
+        <div class="time">08:10 – 09:40</div>
+        <div class="details">
+          <div class="grades">Grade 6</div>
+          <div class="activity">MAP Testing <span class="tag">Reading</span></div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">08:20 – 09:40</div>
+        <div class="details">
+          <div class="grades">Grades 2 &amp; 3</div>
+          <div class="activity">MAP Testing</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">10:05 – 11:00</div>
+        <div class="details">
+          <div class="grades">Grades 4 &amp; 5</div>
+          <div class="activity">MAP Testing</div>
+        </div>
+      </div>
+
+      <div class="session">
+        <div class="time">12:00 – 13:20</div>
+        <div class="details">
+          <div class="grades">Grades 7 &amp; 8</div>
+          <div class="activity">MAP Testing <span class="tag">Reading</span></div>
+        </div>
+      </div>
+    </section>
+
+    <footer>Sessions are listed in chronological order by start time.</footer>
+  </main>
+</body>
+</html>
