@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Insertion Sort Visualizer – Java</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: #1e2130;
+      border: 1px solid #2d3348;
+      border-radius: 14px;
+      padding: 24px;
+      width: 100%;
+      max-width: 860px;
+      margin-bottom: 20px;
+    }
+
+    /* ── Array Bars ── */
+    #array-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 6px;
+      height: 220px;
+      padding: 0 8px;
+      margin-bottom: 12px;
+    }
+
+    .bar-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.25s ease;
+    }
+
+    .bar {
+      width: 44px;
+      border-radius: 6px 6px 2px 2px;
+      transition: height 0.3s ease, background 0.3s ease;
+      position: relative;
+    }
+
+    .bar-val {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+
+    /* colour states */
+    .bar.default  { background: #3b4a6b; }
+    .bar.sorted   { background: linear-gradient(180deg, #34d399, #059669); }
+    .bar.current  { background: linear-gradient(180deg, #f59e0b, #d97706); box-shadow: 0 0 12px #f59e0b88; }
+    .bar.compare  { background: linear-gradient(180deg, #60a5fa, #2563eb); box-shadow: 0 0 12px #60a5fa66; }
+    .bar.shifting { background: linear-gradient(180deg, #c084fc, #7c3aed); }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.78rem; color: #94a3b8; }
+    .legend-dot  { width: 12px; height: 12px; border-radius: 3px; }
+
+    /* ── Step info ── */
+    #step-info {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #94a3b8;
+      min-height: 22px;
+      margin: 8px 0 4px;
+    }
+
+    /* ── Controls ── */
+    .controls {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 14px;
+    }
+
+    button {
+      padding: 9px 22px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    button:active { transform: scale(0.97); }
+    button:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    #btn-play   { background: linear-gradient(135deg, #60a5fa, #a78bfa); color: #0f1117; }
+    #btn-prev   { background: #2d3348; color: #e2e8f0; }
+    #btn-next   { background: #2d3348; color: #e2e8f0; }
+    #btn-reset  { background: #2d3348; color: #e2e8f0; }
+    #btn-random { background: #2d3348; color: #e2e8f0; }
+
+    .speed-wrap { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: #64748b; }
+    input[type=range] { accent-color: #60a5fa; cursor: pointer; }
+
+    /* ── Progress ── */
+    .progress-bar-outer {
+      width: 100%;
+      height: 4px;
+      background: #2d3348;
+      border-radius: 99px;
+      margin-top: 10px;
+    }
+    .progress-bar-inner {
+      height: 100%;
+      background: linear-gradient(90deg, #60a5fa, #a78bfa);
+      border-radius: 99px;
+      transition: width 0.3s ease;
+    }
+
+    /* ── Java Code Panel ── */
+    .code-card {
+      position: relative;
+    }
+    .code-card h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #64748b;
+      margin-bottom: 14px;
+    }
+
+    pre {
+      font-family: 'Cascadia Code', 'Fira Code', 'Consolas', monospace;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      overflow-x: auto;
+      background: #141720;
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .code-line {
+      display: block;
+      padding: 0 4px;
+      border-radius: 4px;
+      transition: background 0.25s;
+      white-space: pre;
+    }
+    .code-line.active {
+      background: #2a2060;
+      border-left: 3px solid #a78bfa;
+      padding-left: 6px;
+      color: #e2e8f0;
+    }
+
+    /* syntax colours */
+    .kw  { color: #c084fc; }
+    .ty  { color: #67e8f9; }
+    .cm  { color: #4b5563; font-style: italic; }
+    .nu  { color: #fb923c; }
+    .fn  { color: #60a5fa; }
+    .op  { color: #94a3b8; }
+  </style>
+</head>
+<body>
+
+<h1>Insertion Sort Visualizer</h1>
+<p class="subtitle">Step through the algorithm with highlighted Java code</p>
+
+<!-- Array viz -->
+<div class="card">
+  <div id="array-container"></div>
+  <div id="step-info">Press Play or Step to begin</div>
+  <div class="legend">
+    <div class="legend-item"><div class="legend-dot" style="background:#3b4a6b"></div>Unsorted</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>Key (current)</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#60a5fa"></div>Comparing</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#c084fc"></div>Shifting right</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#34d399"></div>Sorted</div>
+  </div>
+  <div class="controls">
+    <button id="btn-prev"   title="Previous step">◀ Prev</button>
+    <button id="btn-play">▶ Play</button>
+    <button id="btn-next"   title="Next step">Next ▶</button>
+    <button id="btn-reset">↺ Reset</button>
+    <button id="btn-random">⚅ Random</button>
+    <div class="speed-wrap">
+      <span>Speed:</span>
+      <input type="range" id="speed" min="100" max="1500" value="700" step="100">
+    </div>
+  </div>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progress" style="width:0%"></div>
+  </div>
+</div>
+
+<!-- Java code -->
+<div class="card code-card">
+  <h2>Java Implementation</h2>
+  <pre id="code-block"></pre>
+</div>
+
+<script>
+// ── Java source (lines we will highlight) ──────────────────────────────────
+const CODE_LINES = [
+  { html: `<span class="kw">public static void</span> <span class="fn">insertionSort</span>(<span class="ty">int</span>[] arr) {`, tag: 'sig' },
+  { html: `    <span class="ty">int</span> n <span class="op">=</span> arr.length;`, tag: 'init' },
+  { html: `    <span class="kw">for</span> (<span class="ty">int</span> i <span class="op">=</span> <span class="nu">1</span>; i <span class="op">&lt;</span> n; i++) {`, tag: 'outer' },
+  { html: `        <span class="ty">int</span> key <span class="op">=</span> arr[i];`, tag: 'key' },
+  { html: `        <span class="ty">int</span> j <span class="op">=</span> i <span class="op">-</span> <span class="nu">1</span>;`, tag: 'j-init' },
+  { html: `        <span class="kw">while</span> (j <span class="op">&gt;=</span> <span class="nu">0</span> <span class="op">&amp;&amp;</span> arr[j] <span class="op">&gt;</span> key) {`, tag: 'while' },
+  { html: `            arr[j <span class="op">+</span> <span class="nu">1</span>] <span class="op">=</span> arr[j];`, tag: 'shift' },
+  { html: `            j<span class="op">--</span>;`, tag: 'j-dec' },
+  { html: `        }`, tag: 'end-while' },
+  { html: `        arr[j <span class="op">+</span> <span class="nu">1</span>] <span class="op">=</span> key;`, tag: 'place' },
+  { html: `    }`, tag: 'end-for' },
+  { html: `}`, tag: 'end-fn' },
+];
+
+// ── State ──────────────────────────────────────────────────────────────────
+let arr        = [38, 27, 43, 3, 9, 82, 10];
+let steps      = [];   // pre-computed animation frames
+let stepIdx    = -1;
+let playing    = false;
+let playTimer  = null;
+
+// ── Pre-compute all steps ─────────────────────────────────────────────────
+function computeSteps(input) {
+  const a = [...input];
+  const n = a.length;
+  const out = [];
+
+  const push = (arr, highlights, codeLine, info) =>
+    out.push({ arr: [...arr], highlights: { ...highlights }, codeLine, info });
+
+  push(a, {}, 'sig',  'Start: unsorted array');
+  push(a, {}, 'init', `n = ${n}`);
+
+  for (let i = 1; i < n; i++) {
+    push(a, { [i]: 'current' }, 'outer', `Outer loop: i = ${i}`);
+    const key = a[i];
+    push(a, { [i]: 'current' }, 'key',   `key = arr[${i}] = ${key}`);
+    let j = i - 1;
+    push(a, { [i]: 'current' }, 'j-init', `j = ${j}`);
+
+    while (j >= 0) {
+      const hl = {};
+      for (let k = 0; k < i; k++) hl[k] = k <= j ? 'default' : 'sorted';
+      hl[j]     = 'compare';
+      hl[j + 1] = 'current';
+      push(a, hl, 'while', `Compare arr[${j}]=${a[j]} > key=${key}?`);
+
+      if (a[j] <= key) break;
+
+      a[j + 1] = a[j];
+      const hl2 = { ...hl };
+      hl2[j]     = 'shifting';
+      hl2[j + 1] = 'shifting';
+      push(a, hl2, 'shift', `Shift arr[${j}] → arr[${j + 1}]`);
+      push(a, hl2, 'j-dec', `j-- → j = ${j - 1}`);
+      j--;
+    }
+
+    a[j + 1] = key;
+    const sortedHL = {};
+    for (let k = 0; k <= i; k++) sortedHL[k] = 'sorted';
+    push(a, sortedHL, 'place', `Place key=${key} at arr[${j + 1}]`);
+    push(a, sortedHL, 'end-while', `Inner loop done. Sorted portion: [${a.slice(0,i+1).join(', ')}]`);
+  }
+
+  const allSorted = {};
+  for (let k = 0; k < n; k++) allSorted[k] = 'sorted';
+  push(a, allSorted, 'end-fn', '✅ Array fully sorted!');
+  return out;
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function renderCode(activeTag) {
+  const block = document.getElementById('code-block');
+  block.innerHTML = CODE_LINES.map(({ html, tag }) => {
+    const cls = tag === activeTag ? 'code-line active' : 'code-line';
+    return `<span class="${cls}">${html}</span>`;
+  }).join('\n');
+}
+
+function renderBars(frame) {
+  const container = document.getElementById('array-container');
+  const { arr: a, highlights } = frame;
+  const maxVal = Math.max(...a);
+
+  container.innerHTML = a.map((v, i) => {
+    const pct    = (v / maxVal) * 180;
+    const state  = highlights[i] || 'default';
+    return `
+      <div class="bar-wrap">
+        <span class="bar-val">${v}</span>
+        <div class="bar ${state}" style="height:${pct}px"></div>
+      </div>`;
+  }).join('');
+}
+
+function renderStep(idx) {
+  if (idx < 0 || idx >= steps.length) return;
+  const frame = steps[idx];
+  renderBars(frame);
+  renderCode(frame.codeLine);
+  document.getElementById('step-info').textContent = frame.info;
+  const pct = steps.length <= 1 ? 100 : (idx / (steps.length - 1)) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+  document.getElementById('btn-prev').disabled = idx === 0;
+  document.getElementById('btn-next').disabled = idx === steps.length - 1;
+}
+
+// ── Controls ───────────────────────────────────────────────────────────────
+function reset(newArr) {
+  stopPlay();
+  arr    = newArr || arr;
+  steps  = computeSteps(arr);
+  stepIdx = 0;
+  renderStep(0);
+  document.getElementById('btn-play').textContent = '▶ Play';
+}
+
+function stopPlay() {
+  clearInterval(playTimer);
+  playing = false;
+  document.getElementById('btn-play').textContent = '▶ Play';
+}
+
+function startPlay() {
+  playing = true;
+  document.getElementById('btn-play').textContent = '⏸ Pause';
+  const delay = () => 1600 - parseInt(document.getElementById('speed').value);
+  playTimer = setInterval(() => {
+    if (stepIdx < steps.length - 1) {
+      stepIdx++;
+      renderStep(stepIdx);
+    } else {
+      stopPlay();
+    }
+  }, delay());
+
+  // re-create interval on speed change
+  document.getElementById('speed').onchange = () => {
+    if (playing) { stopPlay(); startPlay(); }
+  };
+}
+
+document.getElementById('btn-play').addEventListener('click', () => {
+  if (playing) { stopPlay(); return; }
+  if (stepIdx >= steps.length - 1) stepIdx = 0;
+  startPlay();
+});
+
+document.getElementById('btn-next').addEventListener('click', () => {
+  stopPlay();
+  if (stepIdx < steps.length - 1) { stepIdx++; renderStep(stepIdx); }
+});
+
+document.getElementById('btn-prev').addEventListener('click', () => {
+  stopPlay();
+  if (stepIdx > 0) { stepIdx--; renderStep(stepIdx); }
+});
+
+document.getElementById('btn-reset').addEventListener('click', () => reset());
+
+document.getElementById('btn-random').addEventListener('click', () => {
+  const n   = 6 + Math.floor(Math.random() * 4);
+  const neu = Array.from({ length: n }, () => 5 + Math.floor(Math.random() * 91));
+  reset(neu);
+});
+
+// ── Init ───────────────────────────────────────────────────────────────────
+reset();
+</script>
+</body>
+</html>
