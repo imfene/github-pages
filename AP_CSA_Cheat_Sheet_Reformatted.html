@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AP Computer Science A Exam Cheat Sheet</title>
+  <style>
+    :root{
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --panel-alt:#f8fafc;
+      --line:#e5e7eb;
+      --line-strong:#cbd5e1;
+      --text:#111827;
+      --muted:#4b5563;
+      --blue:#16324f;
+      --blue-soft:#eef5fb;
+      --amber:#9a6700;
+      --amber-soft:#fff7e6;
+      --green:#166534;
+      --green-soft:#edf9f0;
+      --red:#991b1b;
+      --red-soft:#fef2f2;
+      --shadow:0 10px 30px rgba(15,23,42,.07);
+      --radius:16px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
+      line-height:1.5;
+    }
+
+    a{color:var(--blue); text-decoration:none}
+    a:hover{text-decoration:underline}
+    code{
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+      background:#f3f4f6;
+      padding:.12rem .35rem;
+      border-radius:.35rem;
+      font-size:.95em;
+    }
+
+    .page{
+      max-width:1440px;
+      margin:0 auto;
+      padding:28px 24px 64px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg, #16324f 0%, #1d4b72 100%);
+      color:#fff;
+      border-radius:24px;
+      padding:28px 30px 24px;
+      box-shadow: var(--shadow);
+      margin-bottom:24px;
+    }
+
+    .hero-top{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      font-size:.88rem;
+      letter-spacing:.02em;
+      text-transform:uppercase;
+      opacity:.9;
+      font-weight:700;
+      margin-bottom:10px;
+    }
+
+    h1{
+      margin:.1rem 0 .6rem;
+      font-size:clamp(2rem, 3.5vw, 3rem);
+      line-height:1.08;
+      letter-spacing:-.02em;
+    }
+
+    .hero p{
+      margin:.4rem 0 0;
+      max-width:78ch;
+      color:rgba(255,255,255,.92);
+      font-size:1.02rem;
+    }
+
+    .hero-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:.9rem;
+      font-weight:600;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.16);
+      color:#fff;
+      white-space:nowrap;
+    }
+
+    .search-wrap{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns: minmax(240px, 1fr) auto;
+      gap:12px;
+      align-items:center;
+    }
+
+    .search{
+      width:100%;
+      padding:15px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.25);
+      background:rgba(255,255,255,.12);
+      color:#fff;
+      outline:none;
+      font-size:1rem;
+    }
+
+    .search::placeholder{color:rgba(255,255,255,.76)}
+
+    .search-note{
+      font-size:.92rem;
+      color:rgba(255,255,255,.88);
+      text-align:right;
+    }
+
+    .bgd-blue {
+      background:var(--blue);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 280px minmax(0,1fr);
+      gap:24px;
+      align-items:start;
+    }
+
+    .sidebar{
+      position:sticky;
+      top:18px;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .sidebar h2{
+      margin:0 0 10px;
+      font-size:1.02rem;
+    }
+
+    .sidebar p{
+      margin:0 0 14px;
+      color:var(--muted);
+      font-size:.94rem;
+    }
+
+    .toc{
+      display:grid;
+      gap:8px;
+    }
+
+    .toc a{
+      display:block;
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid transparent;
+      color:var(--text);
+      background:#fff;
+      font-weight:600;
+    }
+
+    .toc a:hover{
+      background:var(--blue-soft);
+      border-color:#d7e7f5;
+      text-decoration:none;
+    }
+
+    .legend{
+      margin-top:16px;
+      padding-top:16px;
+      border-top:1px solid var(--line);
+      display:grid;
+      gap:10px;
+    }
+
+    .legend-item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .dot{
+      width:10px;
+      height:10px;
+      border-radius:999px;
+      flex:0 0 auto;
+    }
+
+    .dot.warn{background:#d97706}
+    .dot.tip{background:#16a34a}
+    .dot.key{background:#2563eb}
+
+    .main{
+      display:grid;
+      gap:20px;
+    }
+
+    .overview-grid,
+    .formula-grid,
+    .unit-grid{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:16px;
+    }
+
+    .card, .section-shell{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .card{
+      padding:18px 18px 16px;
+    }
+
+    .card h3{
+      margin:0 0 8px;
+      font-size:1.08rem;
+      line-height:1.25;
+    }
+
+    .card p,
+    .card li{
+      color:var(--muted);
+    }
+
+    .card p{margin:.35rem 0}
+    .card ul{
+      margin:.35rem 0 0;
+      padding-left:1.2rem;
+    }
+
+    .section-shell{
+      overflow:hidden;
+    }
+
+    .section-head{
+      padding:18px 20px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg, #ffffff 0%, #fafcff 100%);
+    }
+
+    .section-kicker{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-bottom:6px;
+    }
+
+    .section-title{
+      margin:0;
+      font-size:1.5rem;
+      letter-spacing:-.02em;
+    }
+
+    .section-subtitle{
+      margin:0;
+      color:var(--muted);
+      max-width:80ch;
+    }
+
+    .section-body{
+      padding:18px;
+      display:grid;
+      gap:16px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:7px 10px;
+      border-radius:999px;
+      font-weight:700;
+      font-size:.88rem;
+      border:1px solid #d9e7f3;
+      background:var(--blue-soft);
+      color:var(--blue);
+      white-space:nowrap;
+    }
+
+    .mini-label{
+      font-size:.82rem;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      font-weight:800;
+      color:var(--amber);
+      margin-bottom:8px;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      margin-top:10px;
+      overflow:hidden;
+      border-radius:14px;
+    }
+
+    th, td{
+      padding:10px 12px;
+      text-align:left;
+      vertical-align:top;
+      border-bottom:1px solid var(--line);
+    }
+
+    th{
+      font-size:.9rem;
+      color:var(--blue);
+      background:#f8fbff;
+    }
+
+    tr:last-child td{border-bottom:none}
+
+    .callouts{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:14px;
+    }
+
+    .callout{
+      padding:14px 15px;
+      border-radius:16px;
+      border:1px solid;
+      font-size:.96rem;
+    }
+
+    .callout strong{
+      display:block;
+      margin-bottom:4px;
+    }
+
+    .callout.warn{
+      background:var(--red-soft);
+      border-color:#fecaca;
+      color:var(--red);
+    }
+
+    .callout.tip{
+      background:var(--green-soft);
+      border-color:#bbf7d0;
+      color:var(--green);
+    }
+
+    .callout.key{
+      background:var(--blue-soft);
+      border-color:#cfe3f6;
+      color:var(--blue);
+    }
+
+    .formula{
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      background:linear-gradient(180deg, #ffffff 0%, #fcfdff 100%);
+    }
+
+    .formula h3{margin:0 0 6px; font-size:1rem}
+    .formula p{margin:.25rem 0; color:var(--muted)}
+    .formula code{display:inline-block; margin-top:6px}
+
+    .topic-list{
+      display:grid;
+      gap:8px;
+      margin-top:10px;
+    }
+
+    .topic-row{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:var(--panel-alt);
+      color:var(--muted);
+    }
+
+    .muted{color:var(--muted)}
+
+    .footer{
+      margin-top:22px;
+      padding:18px 20px;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--muted);
+      box-shadow:var(--shadow);
+      font-size:.96rem;
+    }
+
+    .footer strong{color:var(--text)}
+
+    mark{
+      background:#fff2b3;
+      color:inherit;
+      padding:.05em .08em;
+      border-radius:.2em;
+    }
+
+    .search-empty{
+      display:none;
+      padding:16px;
+      border-radius:16px;
+      border:1px dashed var(--line-strong);
+      color:var(--muted);
+      background:#fff;
+    }
+
+    @media (max-width: 1100px){
+      .layout{grid-template-columns:1fr}
+      .sidebar{position:relative; top:auto}
+    }
+
+    @media (max-width: 820px){
+      .overview-grid,
+      .formula-grid,
+      .unit-grid,
+      .callouts{grid-template-columns:1fr}
+      .search-wrap{grid-template-columns:1fr}
+      .search-note{text-align:left}
+      .page{padding:16px 14px 40px}
+      .hero{padding:22px 18px}
+      .section-head{padding:16px}
+      .section-body{padding:16px}
+    }
+
+    @media print{
+      body{background:#fff}
+      .page{max-width:none; padding:0}
+      .hero{color:#111; background:#fff; border:1px solid #ddd; box-shadow:none}
+      .hero p, .search-note, .pill{color:#111}
+      .pill{background:#f5f5f5; border-color:#ddd}
+      .sidebar, .search-wrap{display:none}
+      .layout{display:block}
+      .card, .section-shell, .footer{box-shadow:none}
+      a{text-decoration:none; color:#111}
+      .section-shell{break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-top">
+        <div>
+          <div class="eyebrow">AP Computer Science A • Exam Reference</div>
+          <h1>AP Computer Science A Cheat Sheet</h1>
+          <p>
+            This version reorganizes the original one-page cheat sheet into clear sections, searchable topic cards, quick-reference tables,
+            and high-yield reminders so students can find concepts faster and study them more deliberately.
+          </p>
+          <div class="hero-meta">
+            <span class="pill">42 multiple-choice questions</span>
+            <span class="pill">4 FRQs</span>
+            <span class="pill">90 min MC + 90 min FRQ</span>
+            <span class="pill">MC 55% • FRQ 45%</span>
+            <span class="pill">Java Quick Reference provided</span>
+          </div>
+        </div>
+      </div>
+      <div class="search-wrap">
+        <input id="searchInput" class="search" type="search" placeholder="Search by topic, method, exception, pattern, or keyword..." aria-label="Search cheat sheet" />
+        <div class="search-note">Try: <code class="bgd-blue">.equals</code>, <code class="bgd-blue">ArrayList</code>, <code class="bgd-blue">binary search</code>, <code class="bgd-blue">NullPointerException</code>, <code class="bgd-blue">Math.random</code></div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar">
+        <h2>Quick navigation</h2>
+        <p>Jump to a major content area or use the search box to narrow the page instantly.</p>
+        <nav class="toc">
+          <a href="#overview">Exam overview</a>
+          <a href="#formula-bank">Formula bank</a>
+          <a href="#unit-1a">Unit 1A: Primitives & Expressions</a>
+          <a href="#unit-1b">Unit 1B: Objects, Methods & Strings</a>
+          <a href="#unit-2a">Unit 2A: Boolean Logic & Conditionals</a>
+          <a href="#unit-2b">Unit 2B: Loops & Iteration</a>
+          <a href="#unit-3">Unit 3: Class Creation</a>
+          <a href="#unit-4a">Unit 4A: Arrays & ArrayList</a>
+          <a href="#unit-4b">Unit 4B: 2D Arrays & Searching</a>
+          <a href="#sorting-recursion-frq">Sorting, Recursion & FRQ Strategy</a>
+        </nav>
+        <div class="legend">
+          <div class="legend-item"><span class="dot key"></span> Core rule or exam pattern</div>
+          <div class="legend-item"><span class="dot warn"></span> Common trap or error</div>
+          <div class="legend-item"><span class="dot tip"></span> Study or tracing tip</div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section id="overview" class="section-shell searchable" data-search="exam overview ap computer science a exam format multiple choice frq quick reference no calculator">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Start here</span>
+            </div>
+            <h2 class="section-title">Exam overview</h2>
+            <p class="section-subtitle">The original sheet ends with the exam structure. Placing it first gives students a frame for how the rest of the material is likely to be assessed.</p>
+          </div>
+          <div class="section-body">
+            <div class="overview-grid">
+              <article class="card searchable" data-search="multiple choice mcq 42 questions 90 minutes">
+                <h3>Multiple choice section</h3>
+                <p><strong>40 questions</strong> in <strong>90 minutes</strong>.</p>
+                <p>The multiple-choice section contributes <strong>55%</strong> of the AP CSA score.</p>
+              </article>
+              <article class="card searchable" data-search="free response frq 4 questions 90 minutes methods class design arraylist two dimensional arrays">
+                <h3>Free response section</h3>
+                <p><strong>4 questions</strong> in <strong>90 minutes</strong>.</p>
+                <p>Typical FRQ categories: <strong>methods and control</strong>, <strong>class design</strong>, <strong>ArrayList</strong>, and <strong>2D arrays</strong>.</p>
+              </article>
+              <article class="card searchable" data-search="calculator java quick reference provided">
+                <h3>What students get</h3>
+                <p><strong>Java Quick Reference</strong> is provided during the exam.</p>
+                <p><strong>No calculator</strong> is allowed.</p>
+              </article>
+              <article class="card searchable" data-search="study strategy trace code exact method signatures helper methods">
+                <h3>General study focus</h3>
+                <p>Students should be able to trace code, recognize standard patterns, use exact method signatures, and avoid common index and logic errors.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="formula-bank" class="section-shell searchable" data-search="formula bank memorize patterns random int cast before divide range check null check backward remove binary search neighbor bounds">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">High-yield reference</span>
+            </div>
+            <h2 class="section-title">Formula bank and memorization targets</h2>
+            <p class="section-subtitle">These are the patterns students most often need to recall quickly.</p>
+          </div>
+          <div class="section-body">
+            <div class="formula-grid">
+              <article class="formula searchable" data-search="math.random random integer inclusive formula [a,b]">
+                <h3>Random integer in a closed interval</h3>
+                <p>Generates a random integer from <strong>a</strong> through <strong>b</strong>, inclusive.</p>
+                <code>(int)(Math.random() * (b - a + 1)) + a</code>
+              </article>
+              <article class="formula searchable" data-search="cast before divide int division truncates double">
+                <h3>Cast before dividing</h3>
+                <p>Integer division truncates. Convert first when you need decimal output.</p>
+                <code>(double)5 / 2   // 2.5</code>
+              </article>
+              <article class="formula searchable" data-search="round trick positive values only int x plus 0.5">
+                <h3>Positive rounding trick</h3>
+                <p>Works for positive values only.</p>
+                <code>(int)(x + 0.5)</code>
+              </article>
+              <article class="formula searchable" data-search="range check boolean and">
+                <h3>Range check</h3>
+                <p>Write a bounded range as a compound boolean expression.</p>
+                <code>lo &lt;= x &amp;&amp; x &lt;= hi</code>
+              </article>
+              <article class="formula searchable" data-search="short circuit null check first">
+                <h3>Null check first</h3>
+                <p>Let short-circuit evaluation prevent a <code>NullPointerException</code>.</p>
+                <code>obj != null &amp;&amp; obj.method()</code>
+              </article>
+              <article class="formula searchable" data-search="remove while traversing backward arraylist">
+                <h3>Safe removal in an ArrayList</h3>
+                <p>When removing elements, traverse from the end toward the start.</p>
+                <code>for (int i = list.size() - 1; i &gt;= 0; i--)</code>
+              </article>
+              <article class="formula searchable" data-search="binary search sorted loop condition lo hi">
+                <h3>Binary search loop rule</h3>
+                <p>The loop continues while the search interval is still valid.</p>
+                <code>while (lo &lt;= hi)</code>
+              </article>
+              <article class="formula searchable" data-search="bounds check neighbors 2d array short circuit">
+                <h3>Neighbor access in a 2D array</h3>
+                <p>Check bounds before accessing adjacent cells, and use <code>&amp;&amp;</code> so the second test only runs when safe.</p>
+                <code>r &gt; 0 &amp;&amp; grid[r - 1][c] == target</code>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-1a" class="section-shell searchable" data-search="unit 1a primitives expressions variables arithmetic casting output precedence assignment">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 1A • 15-25%</span>
+            </div>
+            <h2 class="section-title">Primitives and expressions</h2>
+            <p class="section-subtitle">Foundational syntax and evaluation rules. Students need this material for both tracing and writing code.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="data types variables primitives int double boolean string arrays objects references final defaults locals null">
+                <div class="mini-label">Data types and variables</div>
+                <p><strong>Primitives:</strong> <code>int</code>, <code>double</code>, <code>boolean</code>. These store values directly.</p>
+                <p><strong>Reference types:</strong> <code>String</code>, arrays, and objects. These store memory addresses.</p>
+                <p><strong>Declaration examples:</strong> <code>int x = 5;</code>, <code>double y = 3.0;</code>, <code>boolean b = true;</code></p>
+                <p><strong>Constants:</strong> <code>final int MAX = 100;</code> cannot be reassigned.</p>
+                <p><strong>Default values for fields:</strong> <code>int → 0</code>, <code>double → 0.0</code>, <code>boolean → false</code>, reference types <code>→ null</code>.</p>
+                <p><strong>Local variables</strong> do <strong>not</strong> get default values.</p>
+              </article>
+
+              <article class="card searchable" data-search="arithmetic casting operator division modulus cast overflow precedence">
+                <div class="mini-label">Arithmetic and casting</div>
+                <table>
+                  <thead>
+                    <tr><th>Operator / idea</th><th>Example</th><th>What to remember</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>+</code>, <code>-</code>, <code>*</code></td><td><code>3 * 2.0 → 6.0</code></td><td><code>int</code> with <code>double</code> gives a <code>double</code></td></tr>
+                    <tr><td><code>/</code></td><td><code>7 / 2 → 3</code></td><td><code>int / int</code> truncates</td></tr>
+                    <tr><td><code>%</code></td><td><code>7 % 2 → 1</code></td><td>Sign follows the dividend</td></tr>
+                    <tr><td><code>(int)</code></td><td><code>(int)3.9 → 3</code></td><td>Truncates, does not round</td></tr>
+                    <tr><td><code>(double)</code></td><td><code>(double)5 / 2 → 2.5</code></td><td>Cast <strong>before</strong> divide</td></tr>
+                  </tbody>
+                </table>
+                <p><strong>Overflow:</strong> <code>Integer.MAX_VALUE + 1</code> wraps to <code>Integer.MIN_VALUE</code>. No runtime error.</p>
+                <p><strong>Precedence:</strong> <code>() → unary (-, !) → *, /, % → +, - → relational → &amp;&amp; → ||</code></p>
+              </article>
+
+              <article class="card searchable" data-search="assignment output increment compound assignment print println string concatenation left to right evaluation">
+                <div class="mini-label">Assignment and output</div>
+                <p><strong>Compound assignment:</strong> <code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>, <code>%=</code></p>
+                <p><strong>Increment and decrement:</strong> <code>x++</code> and <code>x--</code>. The exam only uses postfix form.</p>
+                <p><strong>String concatenation:</strong> <code>"hi" + 5 → "hi5"</code></p>
+                <p><strong>Left-to-right evaluation:</strong> <code>1 + 2 + "a" → "3a"</code>, but <code>"a" + 1 + 2 → "a12"</code></p>
+                <p><strong>Printing:</strong> <code>System.out.print()</code> does not add a newline. <code>System.out.println()</code> does.</p>
+              </article>
+
+              <article class="card searchable" data-search="unit 1a warnings tips int division truncates cast first order of operations">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="int division truncates 5/3 -7/2">
+                    <strong>Common trap</strong>
+                    <span><code>int / int</code> always truncates: <code>5 / 3 → 1</code>, <code>-7 / 2 → -3</code>.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="cast first double divide">
+                    <strong>Study tip</strong>
+                    <span>When a quotient should be decimal, cast first: <code>(double)5 / 3 → 1.667</code></span>
+                  </div>
+                  <div class="callout key searchable" data-search="order of operations parentheses">
+                    <strong>Exam habit</strong>
+                    <span>On multiple choice, add mental parentheses and trace the expression in precedence order.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-1b" class="section-shell searchable" data-search="unit 1b objects methods strings constructors math methods immutable">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 1B</span>
+            </div>
+            <h2 class="section-title">Objects, methods, and strings</h2>
+            <p class="section-subtitle">This section combines object construction, method calls, and the String API.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="objects constructors new null overloaded no-arg constructor">
+                <div class="mini-label">Objects and constructors</div>
+                <p><strong>Create an object:</strong> <code>ClassName obj = new ClassName(args);</code></p>
+                <p><code>new</code> allocates memory and calls the constructor.</p>
+                <p><strong><code>null</code>:</strong> an uninitialized reference. Calling a method on <code>null</code> causes a <code>NullPointerException</code>.</p>
+                <p><strong>Overloaded constructors:</strong> same name, different parameter lists. The compiler chooses by argument count and types.</p>
+                <p><strong>No-argument constructor:</strong> <code>ClassName()</code>. Java supplies one only when you have written no constructors at all.</p>
+              </article>
+
+              <article class="card searchable" data-search="instance method static method void non-void math abs pow sqrt random method signature">
+                <div class="mini-label">Methods and Math</div>
+                <p><strong>Instance method:</strong> <code>obj.method(args)</code></p>
+                <p><strong>Static method:</strong> <code>ClassName.method(args)</code></p>
+                <p><strong>Void methods</strong> perform an action and return nothing.</p>
+                <p><strong>Non-void methods</strong> return a value that must be stored or used.</p>
+                <p><strong>Common Math methods:</strong> <code>Math.abs(x)</code>, <code>Math.pow(b, e)</code>, <code>Math.sqrt(x)</code>, <code>Math.random()</code></p>
+                <p><strong>Random decimal range:</strong> <code>Math.random()</code> gives a value in <code>[0.0, 1.0)</code>.</p>
+                <p><strong>Method signature:</strong> access modifier + return type + method name + parameters. Example: <code>public int getAge()</code></p>
+              </article>
+
+              <article class="card searchable" data-search="string methods immutable length substring indexOf equals compareTo toUpperCase">
+                <div class="mini-label">String methods (Strings are immutable)</div>
+                <table>
+                  <thead>
+                    <tr><th>Method</th><th>Returns</th><th>Meaning</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>.length()</code></td><td><code>int</code></td><td>Number of characters. Includes parentheses.</td></tr>
+                    <tr><td><code>.substring(a, b)</code></td><td><code>String</code></td><td>Characters from index <code>a</code> to <code>b - 1</code></td></tr>
+                    <tr><td><code>.substring(a)</code></td><td><code>String</code></td><td>From index <code>a</code> to the end</td></tr>
+                    <tr><td><code>.indexOf(s)</code></td><td><code>int</code></td><td>Returns <code>-1</code> if not found</td></tr>
+                    <tr><td><code>.equals(s)</code></td><td><code>boolean</code></td><td>Compare content</td></tr>
+                    <tr><td><code>.compareTo(s)</code></td><td><code>int</code></td><td>Negative, zero, or positive for ordering</td></tr>
+                  </tbody>
+                </table>
+                <p><strong>Immutability:</strong> String methods return a new String. The original is unchanged unless you reassign it, as in <code>s = s.toUpperCase();</code></p>
+              </article>
+
+              <article class="card searchable" data-search="string equals vs double equals api docs return type parameter order">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="double equals strings references equals content">
+                    <strong>Common trap</strong>
+                    <span><code>==</code> compares String references. Use <code>.equals()</code> to compare content.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="api docs read return type method name parameters">
+                    <strong>Study tip</strong>
+                    <span>Students should be able to read API entries by checking the return type, method name, and parameter list in order.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="memorize random int formula">
+                    <strong>Memorize</strong>
+                    <span>The inclusive random integer formula is a high-frequency AP CSA pattern.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-2a" class="section-shell searchable" data-search="unit 2a boolean logic conditionals if else de morgan compareTo null checks">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 2A • 25-35%</span>
+            </div>
+            <h2 class="section-title">Boolean logic and conditionals</h2>
+            <p class="section-subtitle">Students need to evaluate conditions correctly and understand how boolean logic controls program flow.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="relational logical operators short circuit de morgan range check boolean expressions">
+                <div class="mini-label">Boolean expressions</div>
+                <p><strong>Relational operators:</strong> <code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code> produce boolean values.</p>
+                <p><strong>Logical operators:</strong> <code>&amp;&amp;</code>, <code>||</code>, <code>!</code></p>
+                <p><strong>Short-circuit rules:</strong> <code>&amp;&amp;</code> stops at the first false, and <code>||</code> stops at the first true.</p>
+                <p><strong>De Morgan's laws:</strong></p>
+                <ul>
+                  <li><code>!(A &amp;&amp; B) ≡ !A || !B</code></li>
+                  <li><code>!(A || B) ≡ !A &amp;&amp; !B</code></li>
+                </ul>
+                <p><strong>Range check:</strong> <code>lo &lt;= x &amp;&amp; x &lt;= hi</code></p>
+              </article>
+
+              <article class="card searchable" data-search="if else if else nested dangling else equivalent logic">
+                <div class="mini-label">if / else if / else</div>
+                <p><strong>Structure:</strong> <code>if (cond) { ... } else if (cond2) { ... } else { ... }</code></p>
+                <p>Only one block runs.</p>
+                <p><strong>Nested if:</strong> the inner <code>if</code> runs only when the outer condition is true.</p>
+                <p><strong>Dangling else:</strong> an <code>else</code> matches the nearest unmatched <code>if</code>. Braces help avoid mistakes.</p>
+                <p><strong>Equivalent logic:</strong> <code>if (!cond) A else B</code> is equivalent to <code>if (cond) B else A</code>.</p>
+              </article>
+
+              <article class="card searchable" data-search="comparing objects primitives strings equals compareTo same reference null check">
+                <div class="mini-label">Comparing objects</div>
+                <p><strong>Primitives:</strong> <code>==</code> compares values.</p>
+                <p><strong>Objects and Strings:</strong> use <code>.equals()</code> for content. <code>==</code> checks whether two references point to the same object.</p>
+                <p><strong>Null-first pattern:</strong> <code>obj != null &amp;&amp; obj.method()</code></p>
+                <p><strong><code>compareTo</code> meaning:</strong> negative means first &lt; second, zero means equal, positive means first &gt; second.</p>
+              </article>
+
+              <article class="card searchable" data-search="de morgan warning trace tip variable table">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="de morgan heavily tested flip both operator and each condition">
+                    <strong>Common trap</strong>
+                    <span>When applying De Morgan's laws, flip the boolean operator and negate each condition. Example: <code>!(x &gt; 5 &amp;&amp; y &lt; 3)</code> becomes <code>x &lt;= 5 || y &gt;= 3</code>.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="trace variable table left to right">
+                    <strong>Tracing tip</strong>
+                    <span>Make a variable table, evaluate each condition left to right, and record which block runs.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="short circuit prevents null pointer exception">
+                    <strong>Core rule</strong>
+                    <span>Short-circuit evaluation is not just convenient. It prevents errors when the second part of a condition would be unsafe.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-2b" class="section-shell searchable" data-search="unit 2b loops iteration while for for each nested loops complexity">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 2B • 25-35%</span>
+            </div>
+            <h2 class="section-title">Loops and iteration</h2>
+            <p class="section-subtitle">This unit emphasizes loop structure, standard loop patterns, and common off-by-one issues.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="while loop for loop for each loop scope infinite loop update unknown count known bounds">
+                <div class="mini-label">while and for loops</div>
+                <p><strong><code>while (cond) { body; update; }</code></strong> checks the condition before each iteration and may run zero times.</p>
+                <p><strong><code>for (init; cond; update) { body; }</code></strong> runs initialization once, then cycles through condition, body, and update.</p>
+                <p><strong>for-each:</strong> <code>for (Type x : collection) { ... }</code> is for reading, not indexed modification.</p>
+                <p><strong>Infinite loops</strong> happen when the condition never becomes false, often because the update is missing or wrong.</p>
+                <p><strong>Loop scope:</strong> a variable declared in a <code>for</code> header exists only inside that loop.</p>
+              </article>
+
+              <article class="card searchable" data-search="standard loop patterns count sum search filter min max build string sentinel loop">
+                <div class="mini-label">Standard loop patterns</div>
+                <table>
+                  <thead>
+                    <tr><th>Pattern</th><th>Code sketch</th><th>Typical initialization</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Count / Sum</td><td><code>sum += arr[i]</code></td><td><code>sum = 0</code></td></tr>
+                    <tr><td>Search</td><td><code>if (== target) return i</code></td><td>None required</td></tr>
+                    <tr><td>Filter</td><td><code>if (cond) count++</code></td><td><code>count = 0</code></td></tr>
+                    <tr><td>Min / Max</td><td><code>if (arr[i] &gt; max) max = val</code></td><td><code>max = arr[0]</code></td></tr>
+                    <tr><td>Build String</td><td><code>result += charAt(i)</code></td><td><code>result = ""</code></td></tr>
+                  </tbody>
+                </table>
+                <p><strong>Sentinel loop:</strong> a special value such as <code>-1</code> signals when to stop.</p>
+              </article>
+
+              <article class="card searchable" data-search="nested loops complexity row major string traversal reverse string o n o n squared o log n">
+                <div class="mini-label">Nested loops and complexity</div>
+                <p><strong>Nested loops:</strong> if the outer loop runs <code>N</code> times and the inner loop runs <code>M</code> times, the inner body executes <code>N × M</code> times.</p>
+                <p><strong>String traversal:</strong> <code>for (int i = 0; i &lt; str.length(); i++)</code></p>
+                <p><strong>Reverse a string:</strong> loop from <code>length() - 1</code> down to <code>0</code> and concatenate each character.</p>
+                <p><strong>Informal runtime ideas:</strong> single loop <code>→ O(n)</code>, nested loops <code>→ O(n²)</code>, repeated halving <code>→ O(log n)</code>.</p>
+              </article>
+
+              <article class="card searchable" data-search="off by one array length rubric patterns">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="off by one i <= arr.length array index out of bounds">
+                    <strong>Common trap</strong>
+                    <span><code>i &lt;= arr.length</code> causes an <code>ArrayIndexOutOfBoundsException</code>. Use <code>i &lt; arr.length</code>.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="frq standard patterns accumulate search filter rubric point">
+                    <strong>FRQ tip</strong>
+                    <span>Standard patterns such as accumulate, search, and filter often align directly with rubric points.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="loop tracing structure init cond body update">
+                    <strong>Core rule</strong>
+                    <span>When tracing a <code>for</code> loop, always think in the order: initialize, check, run body, update, repeat.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-3" class="section-shell searchable" data-search="unit 3 class creation instance variables constructor encapsulation static accessors mutators">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 3 • 10-18%</span>
+            </div>
+            <h2 class="section-title">Class creation</h2>
+            <p class="section-subtitle">This is the class-design portion of the course and a direct FRQ target.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="blueprint object instance vars constructor this no arg constructor defaults">
+                <div class="mini-label">Anatomy of a class</div>
+                <p><strong>Class:</strong> a blueprint. <strong>Object:</strong> an instance with its own state and behavior.</p>
+                <p><strong>Instance variables:</strong> declared in the class body, outside all methods, usually <code>private</code>.</p>
+                <p><strong>Constructor:</strong> <code>public ClassName(params) { ... }</code>. Same name as the class and no return type.</p>
+                <p><strong><code>this</code>:</strong> refers to the current object. Example: <code>this.name = name;</code></p>
+                <p><strong>No-arg constructor:</strong> Java provides one automatically only when you write zero constructors.</p>
+              </article>
+
+              <article class="card searchable" data-search="public private static void non void accessor mutator toString">
+                <div class="mini-label">Methods and access</div>
+                <table>
+                  <thead>
+                    <tr><th>Modifier or kind</th><th>Meaning</th><th>Typical use</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>public</code></td><td>Accessible anywhere</td><td>Methods in the public API</td></tr>
+                    <tr><td><code>private</code></td><td>Accessible only in the class</td><td>Instance variables</td></tr>
+                    <tr><td><code>static</code></td><td>Belongs to the class</td><td>Utilities and constants</td></tr>
+                    <tr><td><code>void</code></td><td>No return value</td><td>Mutators / setters</td></tr>
+                    <tr><td>non-<code>void</code></td><td>Returns a value</td><td>Accessors / getters</td></tr>
+                  </tbody>
+                </table>
+                <p><strong>Accessor:</strong> returns a field value.</p>
+                <p><strong>Mutator:</strong> changes a field value.</p>
+                <p><strong><code>toString()</code>:</strong> returns a String representation and is used automatically by <code>print()</code> and String concatenation.</p>
+              </article>
+
+              <article class="card searchable" data-search="local variables scope static encapsulation data hiding no default value">
+                <div class="mini-label">Scope, static, and design</div>
+                <p><strong>Local variables</strong> exist only inside the method or block where they are declared and must be initialized before use.</p>
+                <p><strong>Static members</strong> are shared across all instances and accessed through the class name.</p>
+                <p><strong>Encapsulation</strong> means using private fields and public methods to protect state and control access.</p>
+              </article>
+
+              <article class="card searchable" data-search="class design frq instance vars constructors methods exact return types">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="frq q2 class design private fields constructors methods return types">
+                    <strong>FRQ focus</strong>
+                    <span>Class-design FRQs require private fields, constructor(s), all required methods, and exact return types.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="do not recompute stored values use instance vars">
+                    <strong>Design tip</strong>
+                    <span>Do not recompute values that are meant to be stored. Use instance variables inside methods.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="point of a class state and behavior">
+                    <strong>Core idea</strong>
+                    <span>The point of a class is to package state and behavior together in one object.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-4a" class="section-shell searchable" data-search="unit 4a arrays arraylist traversal indexing wrapper classes autoboxing remove while traversing">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 4A • 30-40%</span>
+            </div>
+            <h2 class="section-title">Arrays and ArrayList</h2>
+            <p class="section-subtitle">Students need to distinguish clearly between fixed-size arrays and dynamic ArrayLists.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="arrays declaration defaults fixed size arr.length indexing traversal array index out of bounds">
+                <div class="mini-label">Arrays</div>
+                <p><strong>Declare:</strong> <code>int[] arr = new int[n];</code> or <code>int[] arr = {1, 2, 3};</code></p>
+                <p><strong>Size:</strong> fixed after creation.</p>
+                <p><strong>Index range:</strong> <code>0</code> through <code>arr.length - 1</code></p>
+                <p><strong>Last item:</strong> <code>arr[arr.length - 1]</code></p>
+                <p><strong>Defaults:</strong> <code>int[] → 0</code>, <code>double[] → 0.0</code>, <code>boolean[] → false</code>, <code>String[] → null</code></p>
+                <p><strong>Traversal:</strong> <code>for (int i = 0; i &lt; arr.length; i++)</code></p>
+                <p><strong><code>ArrayIndexOutOfBoundsException</code>:</strong> happens when the index is below <code>0</code> or greater than or equal to <code>length</code>.</p>
+              </article>
+
+              <article class="card searchable" data-search="arraylist add get set remove size import wrapper classes integer autoboxing">
+                <div class="mini-label">ArrayList</div>
+                <p><strong>Import:</strong> <code>import java.util.ArrayList;</code></p>
+                <table>
+                  <thead>
+                    <tr><th>Method</th><th>What it does</th><th>Returns</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td><code>add(obj)</code></td><td>Append to the end</td><td><code>boolean</code></td></tr>
+                    <tr><td><code>add(i, obj)</code></td><td>Insert at index <code>i</code>, shifting right</td><td><code>void</code></td></tr>
+                    <tr><td><code>get(i)</code></td><td>Retrieve element at index <code>i</code></td><td><code>E</code></td></tr>
+                    <tr><td><code>set(i, obj)</code></td><td>Replace the element at index <code>i</code></td><td>old <code>E</code></td></tr>
+                    <tr><td><code>remove(i)</code></td><td>Remove at index <code>i</code>, shifting left</td><td>old <code>E</code></td></tr>
+                    <tr><td><code>size()</code></td><td>Number of elements</td><td><code>int</code></td></tr>
+                  </tbody>
+                </table>
+                <p><strong>Wrapper classes:</strong> use <code>Integer</code> instead of <code>int</code> in an <code>ArrayList</code>.</p>
+                <p><strong>Autoboxing:</strong> Java converts between <code>int</code> and <code>Integer</code> automatically.</p>
+                <p><strong>ArrayList vs array:</strong> resizable vs fixed, <code>.get(i)</code> vs <code>[i]</code>, <code>.size()</code> vs <code>.length</code>, and <code>.set(i, val)</code> vs <code>arr[i] = val</code>.</p>
+              </article>
+
+              <article class="card searchable" data-search="remove forward skip elements backward loop enhanced for concurrent modification">
+                <div class="mini-label">Traversal pitfalls</div>
+                <p><strong>Removing while going forward</strong> skips the next element because indices shift left.</p>
+                <p><strong>Fixes:</strong> traverse backward, or do <code>i--</code> immediately after a removal in a forward loop.</p>
+                <p><strong>Enhanced for loops</strong> are good for reading, but not for removing items, modifying primitive elements, or using indices.</p>
+                <p><strong>Concurrent modification issue:</strong> do not use for-each with removal. Use an indexed loop instead.</p>
+              </article>
+
+              <article class="card searchable" data-search="arraylist frq traverse filter accumulate remove backward">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="removing while traversing forward skips elements">
+                    <strong>Common trap</strong>
+                    <span>Removing while traversing forward skips elements. Traverse backward: <code>for (int i = size() - 1; i &gt;= 0; i--)</code>.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="frq q3 arraylist practice traverse filter accumulate conditional remove">
+                    <strong>FRQ tip</strong>
+                    <span>Practice traversal, filtering, accumulation, and conditional removal. Those are standard ArrayList FRQ moves.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="array list methods shift left right">
+                    <strong>Core rule</strong>
+                    <span>Know which methods shift elements left or right after insertion and removal.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="unit-4b" class="section-shell searchable" data-search="unit 4b two dimensional arrays 2d arrays row major col major searching binary search">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Unit 4B</span>
+            </div>
+            <h2 class="section-title">2D arrays and searching</h2>
+            <p class="section-subtitle">This unit combines nested traversal with search patterns and careful bounds checking.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="2d arrays declare access rows cols defaults array of arrays">
+                <div class="mini-label">2D array basics</div>
+                <p><strong>Declare:</strong> <code>int[][] grid = new int[rows][cols];</code> or <code>int[][] g = {{1, 2}, {3, 4}};</code></p>
+                <p><strong>Access:</strong> <code>grid[r][c]</code></p>
+                <p><strong>Rows:</strong> <code>grid.length</code></p>
+                <p><strong>Columns:</strong> <code>grid[0].length</code></p>
+                <p>Think of a 2D array as an <strong>array of arrays</strong>. Each <code>grid[r]</code> is a row.</p>
+                <p><strong>Defaults:</strong> same as 1D arrays. For example, <code>int[][] → 0</code> and <code>String[][] → null</code>.</p>
+              </article>
+
+              <article class="card searchable" data-search="row major column major for each neighbors bounds check short circuit">
+                <div class="mini-label">Traversal orders</div>
+                <p><strong>Row-major order:</strong> outer loop on rows, inner loop on columns. This is the most common exam order.</p>
+                <p><strong>Column-major order:</strong> outer loop on columns, inner loop on rows.</p>
+                <p><strong>For-each traversal:</strong> <code>for (int[] row : grid)</code> followed by <code>for (int val : row)</code></p>
+                <p><strong>Neighbor access:</strong> up <code>grid[r - 1][c]</code>, down <code>grid[r + 1][c]</code>, left <code>grid[r][c - 1]</code>, right <code>grid[r][c + 1]</code></p>
+                <p><strong>Bounds first:</strong> check index validity before accessing a neighbor, and use short-circuit logic so unsafe expressions are never evaluated.</p>
+              </article>
+
+              <article class="card searchable" data-search="linear search sequential search binary search sorted data lo hi mid diagonal patterns">
+                <div class="mini-label">Searching algorithms and 2D patterns</div>
+                <p><strong>Sequential / linear search:</strong> checks each element. Works on any data, sorted or not. Typical runtime <code>O(n)</code>.</p>
+                <p><strong>Binary search:</strong> requires <strong>sorted data</strong>. Use <code>lo = 0</code>, <code>hi = len - 1</code>, and <code>mid = (lo + hi) / 2</code>.</p>
+                <p><strong>Binary logic:</strong> if target is less than the middle value, move <code>hi</code> left. If greater, move <code>lo</code> right. If equal, stop.</p>
+                <p><strong>Binary search exit rule:</strong> the loop must continue while <code>lo &lt;= hi</code>. If the pointers cross, the target is not present.</p>
+                <p><strong>Common 2D patterns:</strong> row sum, column sum, counting matches, finding a max in each row, and working along the main diagonal where <code>r == c</code>.</p>
+              </article>
+
+              <article class="card searchable" data-search="2d array frq bounds aioobe column operations">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="bounds before accessing neighbors aioobe">
+                    <strong>Common trap</strong>
+                    <span>One bad index produces an <code>ArrayIndexOutOfBoundsException</code>. Check bounds before you touch neighbor cells.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="frq q4 row column traversal counting min max column wise">
+                    <strong>FRQ tip</strong>
+                    <span>Practice row traversal, column traversal, counting, min and max, and column-wise operations.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="binary search sorted data only">
+                    <strong>Core rule</strong>
+                    <span>Binary search only works on sorted data. That condition matters every time.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="sorting-recursion-frq" class="section-shell searchable" data-search="sorting recursion frq strategy selection insertion merge sort base case stack overflow">
+          <div class="section-head">
+            <div class="section-kicker">
+              <span class="badge">Closing topics</span>
+            </div>
+            <h2 class="section-title">Sorting, recursion, and FRQ strategy</h2>
+            <p class="section-subtitle">These ideas often appear as tracing tasks, conceptual multiple-choice questions, or strategy notes for the free response section.</p>
+          </div>
+          <div class="section-body">
+            <div class="unit-grid">
+              <article class="card searchable" data-search="selection sort insertion sort merge sort n squared n log n">
+                <div class="mini-label">Sorting algorithms</div>
+                <table>
+                  <thead>
+                    <tr><th>Sort</th><th>How it works</th><th>Time</th></tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Selection</td><td>Find the minimum and swap it to the front</td><td><code>O(n²)</code></td></tr>
+                    <tr><td>Insertion</td><td>Shift the sorted part right and insert the next value</td><td><code>O(n²)</code></td></tr>
+                    <tr><td>Merge</td><td>Split into halves, then merge sorted halves back together</td><td><code>O(n log n)</code></td></tr>
+                  </tbody>
+                </table>
+                <p><strong>Selection sort:</strong> makes exactly one swap per pass.</p>
+                <p><strong>Insertion sort:</strong> is very fast on nearly sorted data.</p>
+                <p><strong>Merge sort:</strong> is recursive, stable, and faster overall on large data sets.</p>
+                <p><strong>Exam emphasis:</strong> trace the passes, identify the sort from behavior, and compare efficiency.</p>
+              </article>
+
+              <article class="card searchable" data-search="recursion base case recursive case stack overflow call stack factorial fibonacci">
+                <div class="mini-label">Recursion</div>
+                <p><strong>Base case:</strong> stops the recursion and must be reachable.</p>
+                <p><strong>Recursive case:</strong> calls the method again with a smaller or simpler input and must move toward the base case.</p>
+                <p><strong>Tracing idea:</strong> draw the call stack and track local variables at each level.</p>
+                <p><strong>Common examples:</strong> factorial, Fibonacci, powers, reversing a String, and binary search.</p>
+                <p><strong>Error to avoid:</strong> missing or wrong base cases lead to <code>StackOverflowError</code> or incorrect results.</p>
+              </article>
+
+              <article class="card searchable" data-search="frq strategy 4 questions 22 minutes helper methods exact signatures">
+                <div class="mini-label">FRQ strategy</div>
+                <p><strong>Q1:</strong> methods and control structures, especially loops and conditionals.</p>
+                <p><strong>Q2:</strong> class design with fields, constructor(s), and methods.</p>
+                <p><strong>Q3:</strong> ArrayList data analysis.</p>
+                <p><strong>Q4:</strong> 2D array traversal.</p>
+                <p><strong>Time target:</strong> about <strong>22 minutes per question</strong>.</p>
+                <p><strong>Best habits:</strong> read the full prompt, use the exact method signatures, and call all provided helper methods.</p>
+              </article>
+
+              <article class="card searchable" data-search="recursion warning frq full prompt exact signature helper methods">
+                <div class="mini-label">Most-tested reminders</div>
+                <div class="callouts">
+                  <div class="callout warn searchable" data-search="missing base case stack overflow">
+                    <strong>Common trap</strong>
+                    <span>Write the base case first. A missing base case causes a <code>StackOverflowError</code>.</span>
+                  </div>
+                  <div class="callout tip searchable" data-search="read full prompt exact method signatures helper methods">
+                    <strong>FRQ tip</strong>
+                    <span>Use the method signatures exactly as given, and do not ignore helper methods mentioned in the prompt.</span>
+                  </div>
+                  <div class="callout key searchable" data-search="trace sort steps call stack">
+                    <strong>Core rule</strong>
+                    <span>For sorting and recursion questions, trace one step at a time. Precision matters more than speed.</span>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <div id="searchEmpty" class="search-empty">No matching sections were found. Try a broader search term such as <code>loops</code>, <code>substring</code>, <code>ArrayList</code>, or <code>binary search</code>.</div>
+
+        <div class="footer">
+          <strong>Source note:</strong> This HTML reorganizes the content of the uploaded cheat sheet into a more navigable study page.
+          The goal is easier scanning, cleaner hierarchy, and faster retrieval of formulas, patterns, pitfalls, and FRQ guidance.
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const input = document.getElementById('searchInput');
+    const allSearchables = Array.from(document.querySelectorAll('.searchable'));
+    const sectionShells = Array.from(document.querySelectorAll('.section-shell'));
+    const emptyState = document.getElementById('searchEmpty');
+
+    function escapeRegExp(string) {
+      return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function clearMarks(el) {
+      el.querySelectorAll('mark').forEach(mark => {
+        const parent = mark.parentNode;
+        parent.replaceChild(document.createTextNode(mark.textContent), mark);
+        parent.normalize();
+      });
+    }
+
+    function highlightTerm(el, term) {
+      if (!term) return;
+      const tagsToSkip = new Set(['SCRIPT', 'STYLE', 'MARK']);
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if (tagsToSkip.has(node.parentNode.tagName)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      });
+
+      const regex = new RegExp(escapeRegExp(term), 'ig');
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+      textNodes.forEach(node => {
+        const text = node.nodeValue;
+        if (!regex.test(text)) return;
+        regex.lastIndex = 0;
+        const frag = document.createDocumentFragment();
+        let lastIndex = 0;
+        let match;
+        while ((match = regex.exec(text)) !== null) {
+          if (match.index > lastIndex) {
+            frag.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+          }
+          const mark = document.createElement('mark');
+          mark.textContent = match[0];
+          frag.appendChild(mark);
+          lastIndex = regex.lastIndex;
+        }
+        if (lastIndex < text.length) {
+          frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+        node.parentNode.replaceChild(frag, node);
+      });
+    }
+
+    function runSearch() {
+      const raw = input.value.trim().toLowerCase();
+      const terms = raw.split(/\s+/).filter(Boolean);
+
+      allSearchables.forEach(el => {
+        clearMarks(el);
+      });
+
+      let visibleSections = 0;
+
+      sectionShells.forEach(section => {
+        const cards = Array.from(section.querySelectorAll('.card, .formula'));
+        const sectionText = (section.dataset.search || '') + ' ' + section.textContent.toLowerCase();
+        let sectionMatches = terms.length === 0 || terms.every(t => sectionText.includes(t));
+        let anyCardVisible = false;
+
+        cards.forEach(card => {
+          const haystack = ((card.dataset.search || '') + ' ' + card.textContent).toLowerCase();
+          const matched = terms.length === 0 || terms.every(t => haystack.includes(t));
+          card.style.display = matched ? '' : 'none';
+          if (matched) {
+            anyCardVisible = true;
+            if (terms.length) terms.forEach(term => highlightTerm(card, term));
+          }
+        });
+
+        const showSection = sectionMatches || anyCardVisible || terms.length === 0;
+        section.style.display = showSection ? '' : 'none';
+
+        if (showSection) visibleSections += 1;
+        if (showSection && terms.length && !anyCardVisible && sectionMatches) {
+          terms.forEach(term => highlightTerm(section.querySelector('.section-head'), term));
+        }
+      });
+
+      emptyState.style.display = visibleSections === 0 ? 'block' : 'none';
+    }
+
+    input.addEventListener('input', runSearch);
+  </script>
+</body>
+</html>
